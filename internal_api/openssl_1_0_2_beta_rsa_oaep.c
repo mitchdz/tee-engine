@@ -36,12 +36,15 @@ int beta_PKCS1_MGF1(unsigned char *mask, long len,
 {
 	long i, outlen = 0;
 	unsigned char cnt[4];
-	EVP_MD_CTX c;
 	unsigned char md[EVP_MAX_MD_SIZE];
 	int mdlen;
 	int rv = -1;
 
-	EVP_MD_CTX_init(&c);
+	/* edit from mitchdz@email.arizona.edu */
+	EVP_MD_CTX *c;
+	c = EVP_MD_CTX_new();
+	/* end edit */
+
 	mdlen = EVP_MD_size(dgst);
 	if (mdlen < 0)
 		goto err;
